@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>โฟล์คแอนด์แฟ</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- 🌐 Language Switch
+  <div class="lang-switch">
+    <button onclick="setLanguage('en')">EN</button>
+    <button onclick="setLanguage('th')">TH</button>
+  </div-->
+
+  <!-- 🟡 Header -->
+  <header>
+    <h1 id="title">☕ โฟล์คแอนด์แฟ</h1>
+    <p id="subtitle">Drive your day with flavor 🚗</p>
+  </header>
+
+  <!-- ☕ Menu Section -->
+  <section id="menu">
+    <h2 id="menuTitle">เมนู</h2>
+
+    <!-- 📸 Menu Images -->
+    <div class="menu-gallery">
+      <img src="images/latte.jpg" alt="Latte" class="menu-img" onclick="showBig(this)">
+      <img src="images/espresso.jpg" alt="Espresso" class="menu-img" onclick="showBig(this)">
+    </div>
+
+    <!-- 🔍 Large Image Preview -->
+    <div id="preview" class="image-preview">
+      <img id="largeImage" src="" alt="Large View">
+    </div>
+
+    <!-- 📝 Order Form -->
+    <form id="orderForm">
+      <h3 id="formTitle">Customize Your Coffee</h3>
+
+      <label for="coffee" id="labelCoffee">Select Coffee:</label>
+      <select name="coffee" id="coffee">
+        <option value="latte">Latte</option>
+        <option value="espresso">Espresso</option>
+        <option value="americano">Americano</option>
+        <option value="cappuccino">Cappuccino</option>
+      </select><br><br>
+
+      <strong id="labelSugar">Sugar:</strong><br>
+      <label><input type="checkbox" name="sugar" value="No Sugar"> <span id="sugar1">No Sugar</span></label><br>
+      <label><input type="checkbox" name="sugar" value="Less Sugar"> <span id="sugar2">Less Sugar</span></label><br>
+      <label><input type="checkbox" name="sugar" value="Normal Sugar"> <span id="sugar3">Normal Sugar</span></label><br><br>
+
+      <strong id="labelToppings">Toppings:</strong><br>
+      <label><input type="checkbox" name="topping" value="Caramel"> Ore-o</label><br>
+      <label><input type="checkbox" name="topping" value="Chocolate"> Chocolate</label><br><br>
+
+      <!--strong id="labelSize">Size:</strong><br>
+      <label><input type="radio" name="size" value="Small"> Small</label><br>
+      <label><input type="radio" name="size" value="Medium"> Medium</label><br>
+      <label><input type="radio" name="size" value="Large"> Large</label><br><br-->
+
+      <strong id="labelPayment">Payment Method:</strong><br>
+      <label><input type="radio" name="payment" value="Cash"> Cash</label><br>
+      <label><input type="radio" name="payment" value="PromptPay"> PromptPay</label><br><br>
+
+      <button type="submit" id="submitBtn">☕ Order Now</button>
+    </form>
+  </section>
+
+  <!-- 📞 Contact -->
+  <footer id="contact">
+    <h2 id="contactTitle">Contact Us</h2>
+    <p>Phone: 098 270 9806</p>
+    <!--p>Location: Bangkok, Thailand</p-->
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
