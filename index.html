@@ -26,8 +26,8 @@
 
     <!-- 📸 Menu Images -->
     <div class="menu-gallery">
-      <img src="images/latte.jpg" alt="Latte" class="menu-img" onclick="showBig(this)">
-      <img src="images/espresso.jpg" alt="Espresso" class="menu-img" onclick="showBig(this)">
+      <img src="images/Menu.jpg" alt="Latte" class="menu-img" onclick="showBig(this)">
+      <!--img src="images/espresso.jpg" alt="Espresso" class="menu-img" onclick="showBig(this)"-->
     </div>
 
     <!-- 🔍 Large Image Preview -->
@@ -39,34 +39,52 @@
     <form id="orderForm">
       <h3 id="formTitle">Customize Your Coffee</h3>
 
-      <label for="coffee" id="labelCoffee">Select Coffee:</label>
+      <label for="coffee" id="labelCoffee">:เมนู:</label>
       <select name="coffee" id="coffee">
-        <option value="latte">Latte</option>
-        <option value="espresso">Espresso</option>
-        <option value="americano">Americano</option>
-        <option value="cappuccino">Cappuccino</option>
+        <option value="latte" data-price="50">ลาเต้</option>
+        <option value="espresso">เอสเปรสโซ่</option>
+        <option value="americano">อเมริกาโน่</option>
+        <option value="cappuccino" data-price="50">คาปูชิโน่</option>
+        <option value="Mocha">มอคค่า</option>
       </select><br><br>
 
-      <strong id="labelSugar">Sugar:</strong><br>
-      <label><input type="checkbox" name="sugar" value="No Sugar"> <span id="sugar1">No Sugar</span></label><br>
-      <label><input type="checkbox" name="sugar" value="Less Sugar"> <span id="sugar2">Less Sugar</span></label><br>
-      <label><input type="checkbox" name="sugar" value="Normal Sugar"> <span id="sugar3">Normal Sugar</span></label><br><br>
+      <strong id="labelSugar">ระดับความหวาน:</strong><br>
+      <label><input type="checkbox" name="sugar" value="No Sugar"> <span id="sugar1">0% ไม่ใส่น้ำตาล</span></label><br>
+      <label><input type="checkbox" name="sugar" value="Less Sugar"> <span id="sugar2"></span>50% หวานน้อย</label><br>
+      <label><input type="checkbox" name="sugar" value="Normal Sugar"> <span id="sugar3">100% หวานปกติ</span></label><br><br>
 
-      <strong id="labelToppings">Toppings:</strong><br>
-      <label><input type="checkbox" name="topping" value="Caramel"> Ore-o</label><br>
-      <label><input type="checkbox" name="topping" value="Chocolate"> Chocolate</label><br><br>
+  <!-- Toppings shown only if selected -->
+  <div id="CappuccinoSection" style="display: none;">
+  <strong id="CappuccinoToppings">Toppings:</strong><br>
+  <label><input type="checkbox" name="topping" value="Coconut" data-price="5"> น้ำมะพร้าว</label><br>
+  <label><input type="checkbox" name="topping" value="Orange"> น้ำส้ม</label><br><br>
+  </div>
 
-      <!--strong id="labelSize">Size:</strong><br>
+  <div id="AmericanoSection" style="display: none;">
+  <strong id="AmericanoToppings">Toppings:</strong><br>
+  <label><input type="checkbox" name="topping" value="Coconut"> น้ำมะพร้าว</label><br>
+  <label><input type="checkbox" name="topping" value="Orange"> น้ำส้ม</label><br><br>
+  <label><input type="checkbox" name="topping" value="Honey"> น้ำผึ้ง</label><br><br>
+  <label><input type="checkbox" name="topping" value="HoneyAndLemon"> น้ำผึ้งมะนาว</label><br><br>
+  <label><input type="checkbox" name="topping" value="Coconutflower"> น้ำช่อ ดอกมะพร้าว</label><br><br>
+  </div> 
+
+      <!--ขนาดแก้ว strong id="labelSize">Size:</strong><br>
       <label><input type="radio" name="size" value="Small"> Small</label><br>
       <label><input type="radio" name="size" value="Medium"> Medium</label><br>
       <label><input type="radio" name="size" value="Large"> Large</label><br><br-->
 
+
+<p><strong>รวมราคา:</strong> <span id="totalPrice">0</span> บาท</p><br><br>
+
+
       <strong id="labelPayment">Payment Method:</strong><br>
-      <label><input type="radio" name="payment" value="Cash"> Cash</label><br>
-      <label><input type="radio" name="payment" value="PromptPay"> PromptPay</label><br><br>
+      <label><input type="radio" name="payment" value="Cash"> เงินสด</label><br>
+      <label><input type="radio" name="payment" value="PromptPay"> พร้อมเพย์</label><br><br>
 
       <button type="submit" id="submitBtn">☕ Order Now</button>
     </form>
+    
   </section>
 
   <!-- 📞 Contact -->
@@ -75,6 +93,53 @@
     <p>Phone: 098 270 9806</p>
     <!--p>Location: Bangkok, Thailand</p-->
   </footer>
+  
+<script>
+  const coffeeSelect = document.getElementById("coffee");
+  const CappuccinoSection = document.getElementById("CappuccinoSection");
+  const AmericanoSection = document.getElementById("AmericanoSection");
+
+  coffeeSelect.addEventListener("change", function () {
+    // Hide both sections first
+    CappuccinoSection.style.display = "none";
+    AmericanoSection.style.display = "none";
+
+    // Show only the section that matches the selected coffee
+    if (coffeeSelect.value === "cappuccino") {
+      CappuccinoSection.style.display = "block";
+    } else if (coffeeSelect.value === "americano") {
+      AmericanoSection.style.display = "block";
+    }
+  });
+</script>
+
+<script> //ราคา
+  function calculateTotal() {
+    let total = 0;
+
+    // 🍵 Coffee price
+    const coffeeSelect = document.getElementById("coffee");
+    const selectedCoffee = coffeeSelect.options[coffeeSelect.selectedIndex];
+    const coffeePrice = Number(selectedCoffee.getAttribute("data-price")) || 0;
+    total += coffeePrice;
+
+    // 🍧 Topping prices (from visible sections only)
+    const toppingInputs = document.querySelectorAll("input[name='topping']:checked");
+    toppingInputs.forEach(topping => {
+      const toppingPrice = Number(topping.getAttribute("data-price")) || 0;
+      total += toppingPrice;
+    });
+
+    // 💰 Show total
+    document.getElementById("totalPrice").textContent = total;
+  }
+
+  // 🔁 Update on any change
+  document.getElementById("coffee").addEventListener("change", calculateTotal);
+  document.querySelectorAll("input[name='topping']").forEach(topping => {
+    topping.addEventListener("change", calculateTotal);
+  });
+</script>
 
   <script src="script.js"></script>
 </body>
