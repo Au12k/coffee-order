@@ -21,7 +21,7 @@
   </header>
 
   <!-- ☕ Menu Section -->
-  <section id="menu">
+  <section id="menuSection">
     <h2 id="menuTitle">เมนู</h2>
 
     <!-- 📸 Menu Images -->
@@ -36,38 +36,97 @@
     </div>
 
     <!-- 📝 Order Form -->
-    <form id="orderForm">
-      <h3 id="formTitle">Customize Your Coffee</h3>
+  <form id="orderForm">
+    <label for="menu">เลือกเมนู:</label>
+    <select name="menu" id="menu">
+      <option value="">-- กรุณาเลือก --</option>
+      <option value="coffee">กาแฟ</option>
+      <option value="milk">เมนูนมสด</option>
+      <option value="matcha">ชา/มัทฉะ</option>
+      <option value="soda">โซดา</option>
+    </select><br><br>
 
-      <label for="coffee" id="labelCoffee">:เมนู:</label>
-      <select name="coffee" id="coffee">
+  <!-- กาแฟ -->
+    <label for="coffee" id="labelCoffee" style="display: none;">:เมนูกาแฟ:</label>
+    <select name="coffee" id="coffee" style="display: none;">
+      <option value="">-- กรุณาเลือก --</option>
         <option value="latte" data-price="50">ลาเต้</option>
-        <option value="espresso">เอสเปรสโซ่</option>
-        <option value="americano">อเมริกาโน่</option>
+        <option value="espresso"data-price ="50">เอสเปรสโซ่</option>
+        <option value="americano"data-price = "40">อเมริกาโน่</option>
         <option value="cappuccino" data-price="50">คาปูชิโน่</option>
-        <option value="Mocha">มอคค่า</option>
-      </select><br><br>
+        <option value="mocha" data-price="50">มอคค่า</option>
+    </select><br><br>
 
-      <strong id="labelSugar">ระดับความหวาน:</strong><br>
-      <label><input type="checkbox" name="sugar" value="No Sugar"> <span id="sugar1">0% ไม่ใส่น้ำตาล</span></label><br>
-      <label><input type="checkbox" name="sugar" value="Less Sugar"> <span id="sugar2"></span>50% หวานน้อย</label><br>
-      <label><input type="checkbox" name="sugar" value="Normal Sugar"> <span id="sugar3">100% หวานปกติ</span></label><br><br>
-
-  <!-- Toppings shown only if selected -->
+    <!-- กาแฟ: ท็อปปิ้ง -->
   <div id="CappuccinoSection" style="display: none;">
   <strong id="CappuccinoToppings">Toppings:</strong><br>
   <label><input type="checkbox" name="topping" value="Coconut" data-price="5"> น้ำมะพร้าว</label><br>
-  <label><input type="checkbox" name="topping" value="Orange"> น้ำส้ม</label><br><br>
+  <label><input type="checkbox" name="topping" value="Orange" data-price="5">น้ำส้ม</label><br>
   </div>
 
   <div id="AmericanoSection" style="display: none;">
   <strong id="AmericanoToppings">Toppings:</strong><br>
-  <label><input type="checkbox" name="topping" value="Coconut"> น้ำมะพร้าว</label><br>
-  <label><input type="checkbox" name="topping" value="Orange"> น้ำส้ม</label><br><br>
-  <label><input type="checkbox" name="topping" value="Honey"> น้ำผึ้ง</label><br><br>
-  <label><input type="checkbox" name="topping" value="HoneyAndLemon"> น้ำผึ้งมะนาว</label><br><br>
-  <label><input type="checkbox" name="topping" value="Coconutflower"> น้ำช่อ ดอกมะพร้าว</label><br><br>
+  <label><input type="checkbox" name="topping" value="Coconut" data-price="10"> น้ำมะพร้าว</label><br>
+  <label><input type="checkbox" name="topping" value="Orange"data-price="10"> น้ำส้ม</label><br>
+  <label><input type="checkbox" name="topping" value="Honey"data-price="5"> น้ำผึ้ง</label><br>
+  <label><input type="checkbox" name="topping" value="HoneyAndLemon"data-price="20"> น้ำผึ้งมะนาว</label><br>
+  <label><input type="checkbox" name="topping" value="Coconutflower"data-price="30"> น้ำช่อ ดอกมะพร้าว</label><br>
   </div> 
+
+    <!-- เมนูนม -->
+    <label for="milk" id="labelMilk" style="display: none;">:เมนูนมสด:</label>
+      <select name="milk" id="milk" style="display: none;">
+        <option value="select" data-price="0">--เลือกเมนู--</option>
+        <option value="onlymilk" data-price="50">นมสด</option>
+        <option value="pinkmilk"data-price ="50">นมชมพู</option>
+        <option value="caramelmilk"data-price = "50">นมสดคาราเมล</option>
+        <option value="cocoa" data-price="50">โกโก้</option>
+        <option value="greentea" data-price="40">ชาเขียว</option>
+        <option value="thaitea" data-price="40">ชาไทย</option>
+        <option value="coconutmilk" data-price="50">มะพร้าวนมสด</option> 
+      </select><br><br>
+
+    <!-- นม: ท็อปปิ้ง -->     
+  <div id="CoconutMilkSection" style="display: none;">
+  <strong id="CoconutMilkToppings">Toppings:</strong><br>
+  <label><input type="checkbox" name="topping" value="Coconut" data-price="0">ปั่น</label><br>
+
+  <label><input type="radio" name="topping" value="CoconutOnly" data-price="0">ไม่เพิ่มท็อปปิ้ง</label><br>
+  <label><input type="radio" name="topping" value="Greentea" data-price="15">ราดชาเขียว</label><br>
+  <label><input type="radio" name="topping" value="Cocoa" data-price="15">ราดโกโก้</label><br>
+  <label><input type="radio" name="topping" value="Orange" data-price="15">ราดกาแฟ</label><br><br>
+  </div>
+
+
+    <!-- มัทฉะ -->
+    <label for="matcha" id="labelMatcha" style="display: none;">:เมนูชา/มัทฉะ:</label>
+    <select name="matcha" id="matcha" style="display: none;">
+        <option value="select" data-price="0">--เลือกเมนู--</option>
+        <option value="matcha" data-price="60">มัทฉะ</option>
+        <option value="matchacoconut"data-price ="70">มัทฉะน้ำมะพร้าว</option>
+        <option value="matchalatte"data-price = "70">มัทฉะลาเต้</option>
+        <option value="matchahoneylemon" data-price="50">มัทฉะน้ำผึ้งมะนาว</option>
+    </select><br><br>
+
+    <!-- โซดา -->
+    <label for="soda" id="labelSoda" style="display: none;">:เมนูโซดา และน้ำผลไม้:</label>
+    <select name="soda" id="soda" style="display: none;">
+        <option value="select" data-price="0">--เลือกเมนู--</option>
+        <option value="redsoda" data-price="30">แดงโซดา</option>
+        <option value="greensoda"data-price ="30">เขียวโซดา</option>
+        <option value="orangesoda"data-price = "30">ส้มโซดา</option>
+        <option value="plumsoda" data-price="30">บ๋วยโซดา</option>
+        <option value="lemon" data-price="30">มะนาว</option>
+        <option value="honeylemon" data-price="30">มะนาวน้ำผึ้ง</option>
+        <option value="strawberry" data-price="30">สตอเบอรี่</option>
+    </select><br><br>
+
+
+      <strong id="labelSugar" >ระดับความหวาน:</strong><br>
+      <label><input type="radio" name="sugar" value="No Sugar"> <span id="sugar1">100% หวานปกติ </span></label><br>
+      <label><input type="radio" name="sugar" value="Less Sugar"> <span id="sugar2"></span>50% หวานน้อย</label><br>
+      <label><input type="radio" name="sugar" value="Normal Sugar"> <span id="sugar3">0% ไม่หวาน</span></label><br><br>
+
 
       <!--ขนาดแก้ว strong id="labelSize">Size:</strong><br>
       <label><input type="radio" name="size" value="Small"> Small</label><br>
@@ -93,52 +152,143 @@
     <p>Phone: 098 270 9806</p>
     <!--p>Location: Bangkok, Thailand</p-->
   </footer>
-  
+
 <script>
-  const coffeeSelect = document.getElementById("coffee");
-  const CappuccinoSection = document.getElementById("CappuccinoSection");
-  const AmericanoSection = document.getElementById("AmericanoSection");
 
-  coffeeSelect.addEventListener("change", function () {
-    // Hide both sections first
-    CappuccinoSection.style.display = "none";
-    AmericanoSection.style.display = "none";
+document.getElementById("menu").addEventListener("change", updateMenuSections);
 
-    // Show only the section that matches the selected coffee
-    if (coffeeSelect.value === "cappuccino") {
-      CappuccinoSection.style.display = "block";
-    } else if (coffeeSelect.value === "americano") {
-      AmericanoSection.style.display = "block";
+  function updateMenuSections() {
+    const selectedMenu = document.getElementById("menu").value;
+
+//รายชื่อเมนู
+    const menus = ["coffee", "milk", "matcha", "soda"];
+    menus.forEach(menu => {
+      const label = document.getElementById("label"+capitalize(menu));
+      const select = document.getElementById(menu);
+
+ if (menu === selectedMenu) {
+      if (label) label.style.display = "inline-block";
+      if (select) select.style.display = "inline-block";
+    } else {
+      if (label) label.style.display = "none";
+      if (select) select.style.display = "none";
     }
   });
+
+    updateToppingSection(); // ✅ เรียกจากฟังก์ชันภายนอกได้แล้ว
+    calculateTotal();
+  }
+
+// ท็อปปิ้ง
+function updateToppingSection() {
+  // ซ่อนทุก topping ก่อน
+  document.querySelectorAll("div[id$='Section']").forEach(div => {
+    div.style.display = "none";
+  });
+
+  // 🔍 เช็กเมนูย่อยที่เลือก
+  const coffeeValue = document.getElementById("coffee").value;
+  const milkValue = document.getElementById("milk").value;
+  const matchaValue = document.getElementById("matcha").value;
+
+  // ☕ กาแฟ
+  if (coffeeValue === "cappuccino") {
+    document.getElementById("CappuccinoSection").style.display = "block";
+  } else if (coffeeValue === "americano") {
+    document.getElementById("AmericanoSection").style.display = "block";
+  }
+
+  // 🥛 นม
+  if (milkValue === "coconutmilk") {
+    document.getElementById("CoconutMilkSection").style.display = "block";
+  }
+
+  // 🟢 มัทฉะ (คุณยังไม่มี section, แนะนำเพิ่มถ้าต้องการ)
+}
+
+    calculateTotal();
+  
+
+  // ผูก event เวลาเลือกเมนูย่อยกาแฟ
+  document.getElementById("coffee").addEventListener("change", updateToppingSection);
+
+  calculateTotal(); // คำนวณราคาใหม่
+
+
+function capitalize(str) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
 </script>
 
-<script> //ราคา
+<!-- ✅ ADD THIS AT THE BOTTOM OF YOUR HTML, BEFORE </body> -->
+<script>
+  // 🧮 Calculate total price
   function calculateTotal() {
     let total = 0;
+    const menu = document.getElementById("menu").value;
 
-    // 🍵 Coffee price
-    const coffeeSelect = document.getElementById("coffee");
-    const selectedCoffee = coffeeSelect.options[coffeeSelect.selectedIndex];
-    const coffeePrice = Number(selectedCoffee.getAttribute("data-price")) || 0;
-    total += coffeePrice;
+    let selectedOption;
 
-    // 🍧 Topping prices (from visible sections only)
-    const toppingInputs = document.querySelectorAll("input[name='topping']:checked");
-    toppingInputs.forEach(topping => {
-      const toppingPrice = Number(topping.getAttribute("data-price")) || 0;
-      total += toppingPrice;
+    if (menu === "coffee") {
+      selectedOption = document.getElementById("coffee").selectedOptions[0];
+    } else if (menu === "milk") {
+      selectedOption = document.getElementById("milk").selectedOptions[0];
+    } else if (menu === "matcha") {
+      selectedOption = document.getElementById("matcha").selectedOptions[0];
+    } else if (menu === "soda") {
+      selectedOption = document.getElementById("soda").selectedOptions[0];
+    }
+
+    if (selectedOption) {
+      total += Number(selectedOption.getAttribute("data-price")) || 0;
+    }
+
+    // ✅ Include toppings that are visible and checked
+    const visibleSections = document.querySelectorAll("div[id$='Section']:not([style*='display: none'])");
+    visibleSections.forEach(section => {
+      const toppings = section.querySelectorAll("input[name='topping']:checked");
+      toppings.forEach(t => {
+        total += Number(t.getAttribute("data-price")) || 0;
+      });
     });
 
-    // 💰 Show total
     document.getElementById("totalPrice").textContent = total;
   }
 
-  // 🔁 Update on any change
-  document.getElementById("coffee").addEventListener("change", calculateTotal);
-  document.querySelectorAll("input[name='topping']").forEach(topping => {
-    topping.addEventListener("change", calculateTotal);
+  // 🧠 Auto-update on all changes
+  function setupListeners() {
+    document.getElementById("menu").addEventListener("change", calculateTotal);
+    document.getElementById("coffee").addEventListener("change", calculateTotal);
+    document.getElementById("milk").addEventListener("change", calculateTotal);
+    document.getElementById("matcha").addEventListener("change", calculateTotal);
+    document.getElementById("soda").addEventListener("change", calculateTotal);
+
+    document.querySelectorAll("input[name='topping']").forEach(input => {
+      input.addEventListener("change", calculateTotal);
+    });
+  }
+
+  // 🧾 Handle form submission
+  document.getElementById("orderForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    const total = document.getElementById("totalPrice").textContent;
+    alert("ขอบคุณสำหรับการสั่งซื้อ! ราคารวม: " + total + " บาท");
   });
+
+  // ✅ Run setup
+  setupListeners();
+  document.getElementById("coffee").addEventListener("change", () => {
+  updateToppingSection();
+  calculateTotal();
+});
+document.getElementById("milk").addEventListener("change", () => {
+  updateToppingSection();
+  calculateTotal();
+});
+document.getElementById("matcha").addEventListener("change", () => {
+  updateToppingSection();
+  calculateTotal();
+});
 </script>
 
   <script src="script.js"></script>
