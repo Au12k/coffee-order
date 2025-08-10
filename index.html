@@ -291,7 +291,24 @@ document.getElementById("matcha").addEventListener("change", () => {
 });
 </script>
 
+  
+<script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+<script>
+async function initLiff() {
+  await liff.init({ liffId: "Au12k" });
+  if (!liff.isLoggedIn()) {
+    liff.login(); // redirects to LINE login
+  } else {
+    const profile = await liff.getProfile();
+    console.log(profile.displayName, profile.userId);
+    // show profile on page or send profile to your backend (optional)
+  }
+}
+window.addEventListener('load', initLiff);
+</script>
+  
   <script src="script.js"></script>
 </body>
 </html>
+
 
