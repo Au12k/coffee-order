@@ -7,63 +7,52 @@
 </head>
 <body>
   <h2>สั่งกาแฟ</h2>
-  <form id="orderForm">
-    <label>ชื่อ: <input type="text" name="name" required></label><br><br>
-    <label>กาแฟ: 
-      <select name="coffee">
-        <option value="Americano">Americano</option>
-        <option value="Latte">Latte</option>
-        <option value="Cappuccino">Cappuccino</option>
-      </select>
-    </label><br><br>
-    <label>ขนาด: 
-      <select name="size">
-        <option value="S">เล็ก</option>
-        <option value="M">กลาง</option>
-        <option value="L">ใหญ่</option>
-      </select>
-    </label><br><br>
-    <label>ท็อปปิ้ง:<br>
-      <input type="checkbox" name="topping" value="Whipped Cream"> วิปครีม<br>
-      <input type="checkbox" name="topping" value="Jelly"> เจลลี่<br>
-      <input type="checkbox" name="topping" value="Boba"> ไข่มุก<br>
-    </label><br>
-    <button type="submit">ส่งคำสั่งซื้อ</button>
-  </form>
+<form id="orderForm">
+  <input type="text" name="name" placeholder="Your name" required><br>
+  <select name="coffee">
+    <option value="Latte">Latte</option>
+    <option value="Americano">Americano</option>
+  </select><br>
+  <select name="size">
+    <option value="Small">Small</option>
+    <option value="Large">Large</option>
+  </select><br>
+  <input type="text" name="sugar" placeholder="Sugar level"><br>
+  <input type="text" name="toppings" placeholder="Toppings"><br>
+  <button type="submit">Submit Order</button>
+</form>
+
+<script>
+document.getElementById("orderForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+  
+  const formData = {
+    name: e.target.name.value,
+    coffee: e.target.coffee.value,
+    size: e.target.size.value,
+    sugar: e.target.sugar.value,
+    toppings: e.target.toppings.value
+  };
+
+  fetch("https://script.google.com/macros/s/AKfycbyrTB5KK9uj1-_HWaY8-aW8vfUouNQxBS4-8vBnAB0lSme-4jjWS-8Gof4OUwL1jnj6/exec", {
+    method: "POST",
+    body: JSON.stringify(formData),
+    headers: {
+      "Content-Type": "application/json"
+    }
+  })
+  .then(res => res.text())
+  .then(data => {
+    alert("✅ Order submitted successfully!");
+    e.target.reset();
+  })
+  .catch(err => {
+    alert("❌ Error: " + err);
+  });
+});
+</script>
 
   <p id="status"></p>
-
-  <script>
-    const scriptURL = "https://script.google.com/macros/s/AKfycbyrTB5KK9uj1-_HWaY8-aW8vfUouNQxBS4-8vBnAB0lSme-4jjWS-8Gof4OUwL1jnj6/exec";
-    const form = document.getElementById("orderForm");
-    const status = document.getElementById("status");
-
-    form.addEventListener("submit", e => {
-      e.preventDefault();
-
-      const data = {
-        name: form.name.value,
-        coffee: form.coffee.value,
-        size: form.size.value,
-        topping: Array.from(form.querySelectorAll("input[name='topping']:checked"))
-                      .map(el => el.value).join(", ")
-      };
-
-      fetch(scriptURL, {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: { "Content-Type": "application/json" }
-      })
-      .then(res => res.json())
-      .then(res => {
-        status.textContent = "✅ ส่งข้อมูลสำเร็จ!";
-        form.reset();
-      })
-      .catch(err => {
-        status.textContent = "❌ เกิดข้อผิดพลาด ลองใหม่อีกครั้ง: " + err;
-        console.error(err);
-      });
-    });
-  </script>
+  
 </body>
 </html>
