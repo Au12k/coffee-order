@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="th">
 <head>
@@ -6,64 +5,75 @@
   <title>สั่งกาแฟ</title>
 </head>
 <body>
-  <h2>สั่งกาแฟ</h2>
-<form id="orderForm">
-  <input type="text" name="name" placeholder="Your name" required><br>
-  <select name="coffee">
-    <option value="Latte">Latte</option>
-    <option value="Americano">Americano</option>
-  </select><br>
-  <select name="size">
-    <option value="Small">Small</option>
-    <option value="Large">Large</option>
-  </select><br>
-  <input type="text" name="sugar" placeholder="Sugar level"><br>
-  <input type="text" name="toppings" placeholder="Toppings"><br>
-  <button type="submit">Submit Order</button>
-</form>
-
-<script type="module">
-  // Import SDKs
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
-  import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
-
-  // Firebase config
-  const firebaseConfig = {
-    apiKey: "AIzaSyAekmEnBXesqc9ebH1k7aINARjnhZyBwJ0",
-    authDomain: "volknfae.firebaseapp.com",
-    projectId: "volknfae",
-    storageBucket: "volknfae.firebasestorage.app",
-    messagingSenderId: "843592399710",
-    appId: "1:843592399710:web:335a7a0bc1aad2b594adcf",
-    measurementId: "G-8V3KVYJKBZ"
-  };
-
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
-
-  // ✅ ฟังก์ชันบันทึกข้อมูลตัวอย่างลง Firestore
-  async function saveOrder() {
-    try {
-      await addDoc(collection(db, "orders"), {
-        name: "คุณลูกค้า",
-        coffee: "Latte",
-        size: "M",
-        sugar: "50%",
-        toppings: "Bubble",
-        createdAt: new Date()
-      });
-      console.log("บันทึกข้อมูลสำเร็จ!");
-    } catch (e) {
-      console.error("เกิดข้อผิดพลาด: ", e);
-    }
-  }
-
-  // เรียกฟังก์ชันทดสอบ
-  saveOrder();
-</script>
+  <h2>ฟอร์มสั่งกาแฟ</h2>
+  <form id="orderForm">
+    <label>ชื่อ: <input type="text" id="name" required></label><br><br>
+    <label>เมนู: 
+      <select id="menu" required>
+        <option value="latte">ลาเต้</option>
+        <option value="americano">อเมริกาโน่</option>
+        <option value="cappuccino">คาปูชิโน่</option>
+      </select>
+    </label><br><br>
+    <label>ขนาด: 
+      <select id="size" required>
+        <option value="S">เล็ก</option>
+        <option value="M">กลาง</option>
+        <option value="L">ใหญ่</option>
+      </select>
+    </label><br><br>
+    <label>น้ำตาล: 
+      <select id="sugar" required>
+        <option value="0">ไม่หวาน</option>
+        <option value="25">25%</option>
+        <option value="50">50%</option>
+        <option value="100">100%</option>
+      </select>
+    </label><br><br>
+    <button type="submit">สั่งกาแฟ</button>
+  </form>
 
   <p id="status"></p>
-  
-</body>
-</html>
+
+  <script type="module">
+    // ===== Firebase SDKs =====
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+    import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+    // ===== Config ของโปรเจคคุณ =====
+    const firebaseConfig = {
+      apiKey: "AIzaSyAekmEnBXesqc9ebH1k7aINARjnhZyBwJ0",
+      authDomain: "volknfae.firebaseapp.com",
+      projectId: "volknfae",
+      storageBucket: "volknfae.firebasestorage.app",
+      messagingSenderId: "843592399710",
+      appId: "1:843592399710:web:335a7a0bc1aad2b594adcf",
+      measurementId: "G-8V3KVYJKBZ"
+    };
+
+    // ===== Initialize =====
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // ===== Handle Form =====
+    const orderForm = document.getElementById("orderForm");
+    const status = document.getElementById("status");
+
+    orderForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const name = document.getElementById("name").value;
+      const menu = document.getElementById("menu").value;
+      const size = document.getElementById("size").value;
+      const sugar = document.getElementById("sugar").value;
+
+      try {
+        await addDoc(collection(db, "orders"), {
+          name,
+          menu,
+          size,
+          sugar,
+          createdAt: serverTimestamp()
+        });
+
+        statu
