@@ -23,14 +23,11 @@
 </form>
 
 <script type="module">
-  // Import the functions you need from the SDKs you need
+  // Import SDKs
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-analytics.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
+  import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  // Firebase config
   const firebaseConfig = {
     apiKey: "AIzaSyAekmEnBXesqc9ebH1k7aINARjnhZyBwJ0",
     authDomain: "volknfae.firebaseapp.com",
@@ -43,8 +40,29 @@
 
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
+  const db = getFirestore(app);
+
+  // ✅ ฟังก์ชันบันทึกข้อมูลตัวอย่างลง Firestore
+  async function saveOrder() {
+    try {
+      await addDoc(collection(db, "orders"), {
+        name: "คุณลูกค้า",
+        coffee: "Latte",
+        size: "M",
+        sugar: "50%",
+        toppings: "Bubble",
+        createdAt: new Date()
+      });
+      console.log("บันทึกข้อมูลสำเร็จ!");
+    } catch (e) {
+      console.error("เกิดข้อผิดพลาด: ", e);
+    }
+  }
+
+  // เรียกฟังก์ชันทดสอบ
+  saveOrder();
 </script>
+
   <p id="status"></p>
   
 </body>
