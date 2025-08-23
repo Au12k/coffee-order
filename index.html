@@ -76,4 +76,13 @@
           createdAt: serverTimestamp()
         });
 
-        statu
+        status.textContent = "✅ บันทึกคำสั่งซื้อเรียบร้อยแล้ว!";
+        orderForm.reset();
+      } catch (error) {
+        console.error("Error adding document: ", error);
+        status.textContent = "❌ เกิดข้อผิดพลาด: " + error.message;
+      }
+    });
+  </script>
+</body>
+</html>
