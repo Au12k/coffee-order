@@ -123,9 +123,26 @@ body{background:var(--gray-bg);font-family:var(--fb);color:var(--black);min-heig
 
 /* RESPONSIVE */
 @media(max-width:640px){
-  .hero-strip{flex-direction:column-reverse;text-align:center;padding:1.5rem 1.25rem;gap:.75rem;min-height:auto}
-  .hero-beetle{width:65vw;max-width:240px}
-  .hero-title{font-size:48px}
+  .hero-strip{
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+    padding:1.5rem 1.25rem 0;
+    gap:0;
+    min-height:auto;
+    justify-content:flex-start;
+  }
+  .hero-content{
+    padding-bottom:1rem;
+    width:100%;
+  }
+  .hero-beetle{
+    width:72vw;
+    max-width:260px;
+    align-self:center;
+    margin-bottom:0;
+  }
+  .hero-title{font-size:44px}
   .menu-grid{grid-template-columns:1fr 1fr}
 }
 @media(max-width:380px){
@@ -502,22 +519,21 @@ document.addEventListener('DOMContentLoaded',()=>App.init());
     beetle.style.position='relative';
     beetle.style.zIndex='3';
 
-    // The SVG viewBox is 280×140. Wheels sit at cy=100, r=20 → bottom of wheel = y120/140 = ~86% down
-    // We shift the beetle UP so wheels land exactly on top of road
-    // Road is 72px tall, beetle renders at bottom of hero (align-self:flex-end)
-    // We need beetle to overlap road by the wheel amount
-    // wheel bottom in SVG = cy(100)+r(20) = 120 out of 140 = 85.7%
-    // so bottom gap = (140-120)/140 = 14.3% of rendered height
-    const beetleW = beetle.offsetWidth || 260;
-    const beetleH = beetleW * (140/280); // maintain aspect ratio
-    const wheelBottomFrac = 120/140;
-    const bottomGapPx = beetleH * (1 - wheelBottomFrac);
-    // push beetle down so wheels touch road top edge
-    beetle.style.marginBottom = `${72 - bottomGapPx - 3}px`;
+    function positionBeetle(){
+      const bW=beetle.offsetWidth||240;
+      const bH=bW*(140/280);
+      const wheelBottomFrac=120/140;
+      const bottomGapPx=bH*(1-wheelBottomFrac);
+      // push beetle down so bottom of wheels = top of road (72px tall)
+      beetle.style.marginBottom=(72-bottomGapPx-2)+'px';
+    }
+
+    positionBeetle();
+    window.addEventListener('resize', positionBeetle);
 
     // Exhaust puffs
     const puffWrap=document.createElement('div');
-    puffWrap.style.cssText='position:absolute;left:-14px;bottom:'+(72 - bottomGapPx + beetleH*0.45)+'px;width:40px;height:30px;pointer-events:none;overflow:visible;z-index:4;';
+    puffWrap.style.cssText='position:absolute;left:-14px;bottom:60px;width:40px;height:30px;pointer-events:none;overflow:visible;z-index:4;';
     beetle.appendChild(puffWrap);
 
     const puffs=[];
@@ -532,7 +548,6 @@ document.addEventListener('DOMContentLoaded',()=>App.init());
     function frame(ts){
       const dt=Math.min((ts-last)/1000,0.05);
       last=ts; t+=dt;
-      // subtle bump — vertical only, small amplitude so wheels stay on road
       beetle.style.transform=`translateY(${Math.sin(t*10)*1.2}px)`;
       puffTimer-=dt;
       if(puffTimer<=0){
@@ -574,4 +589,3 @@ document.addEventListener('DOMContentLoaded',()=>App.init());
 </script>
 </body>
 </html>
-
