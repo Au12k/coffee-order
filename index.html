@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Volk & Ffae Coffee</title>
+<title>Folk & Fair Coffee</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=Sarabun:wght@300;400;500&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -412,9 +412,31 @@ const App={
   placeOrder(){
     const ni=document.getElementById('notesInput');
     if(ni)notes=ni.value;
-    document.getElementById('orderNo').textContent='#ORD-'+Math.floor(1000+Math.random()*9000);
+    const orderId='#ORD-'+Math.floor(1000+Math.random()*9000);
+    document.getElementById('orderNo').textContent=orderId;
     this.closeCart();
     document.getElementById('successModal').classList.add('show');
+    this.sendOrder(orderId);
+  },
+
+  sendOrder(orderId){
+    // ✏️ เมื่อได้ Railway URL ให้เปลี่ยนตรงนี้
+    const SERVER_URL = 'https://YOUR-APP.up.railway.app';
+    const payload={
+      orderId,
+      timestamp: new Date().toISOString(),
+      items: cart.map(c=>({id:c.id, name:c.name, qty:c.qty, price:c.price})),
+      total: this.totalPrice(),
+      notes: notes
+    };
+    fetch(`${SERVER_URL}/order`,{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify(payload)
+    })
+    .then(r=>r.json())
+    .then(()=>console.log('✅ ส่งออเดอร์สำเร็จ'))
+    .catch(()=>console.warn('⚠️ Server ไม่ได้เปิดอยู่'));
   },
 
   resetOrder(){
