@@ -1,0 +1,12 @@
+{
+  "name": "folk-fair-coffee",
+  "version": "1.0.0",
+  "description": "Folk & Fair Coffee Order System",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
